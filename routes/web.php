@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
@@ -18,3 +19,7 @@ Route::post('/upload', [AdminController::class, 'uploadFile'])->name('admin.uplo
 
 Route::get('file/download/{file}', [AdminController::class, 'download'])->name('file.download');
 Route::get('file/preview/{file}', [AdminController::class, 'preview'])->name('file.preview');
+
+Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+Route::post('/users', [UserController::class, 'store'])->name('users.store');
+Route::get('/users', [UserController::class, 'index'])->name('users.index');

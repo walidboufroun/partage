@@ -56,16 +56,19 @@ class AdminController extends Controller
 
         $file = $request->file('file');
 
-        // Sauvegarde du fichier dans le dossier storage/app
-        $path = $file->store('files');
+        // Générer un nom de fichier unique basé sur le nom d'origine, la date et l'heure
+        $fileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME); // Nom du fichier sans extension
+        $extension = $file->getClientOriginalExtension(); // Extension du fichier
+        $dateTime = now()->format('Ymd_His'); // Date et heure actuelles au format YYYYMMDD_HHMMSS
+        $uniqueFileName = $fileName . '-' . $dateTime . '.' . $extension; // Nom de fichier unique
 
-        // Modifier le chemin pour le stocker dans le dossier storage
-        $newPath = Storage::disk('local')->putFile('public', $file);
+        // Sauvegarde du fichier dans le dossier storage/app avec le nom unique
+        $path = $file->storeAs('files', $uniqueFileName);
 
         // Enregistrement des informations du fichier dans la base de données
         $newFile = new File();
-        $newFile->name = $file->getClientOriginalName();
-        $newFile->path = $newPath;
+        $newFile->name = $uniqueFileName; // Utilisez le nom unique pour la base de données
+        $newFile->path = $path;
         $newFile->size = $file->getSize();
         // Vous pouvez également récupérer l'id de l'utilisateur connecté ici
         $newFile->id_user = 1; //auth()->id(); // Exemple: si l'authentification est configurée
@@ -86,6 +89,7 @@ class AdminController extends Controller
 
     public function preview(File $file)
     {
+        /*
         // Récupérer le chemin du fichier à partir de la base de données
         $filePath = $file->path;
 
@@ -94,6 +98,24 @@ class AdminController extends Controller
 
         // Rediriger l'utilisateur vers l'URL du fichier
         return redirect($url);
-    }
+        */
     
+        // Récupérer le chemin du fichier à partir de la base de données
+        $filePath = $file->path;
+
+        // Vérifier si le fichier existe
+        if (Storage::exists($filePath)) {
+            // Récupérer le contenu du fichier
+            $fileContent = Storage::get($filePath);
+
+            // Retourner une réponse avec le contenu du fichier
+            return response($fileContent, 200, [
+                'Content-Type' => Storage::mimeType($filePath),
+                'Content-Disposition' => 'inline; filename="' . $file->name . '"',
+            ]);
+        } else {
+            // Retourner une réponse 404 si le fichier n'existe pas
+            return response()->json(['message' => 'Fichier non trouvé'], 404);
+        }
+    }
 }

@@ -10,8 +10,8 @@
                         <div class="col">{{ $file->id_file }}{{ $file->name }}</div>
                         <div class="col text-right">
                             <!-- Assurez-vous de passer l'ID du fichier à la route -->
-                            <a href="{{ route('file.download', $file->id) }}" class="btn btn-primary">Télécharger</a>
-                            <a href="{{ route('file.preview', $file->id ) }}" class="btn btn-secondary">Aperçu</a>
+                            <a target="_blank" href="{{ route('file.download', $file->id) }}" class="btn btn-primary">Télécharger</a>
+                            <a target="_blank" href="{{ route('file.preview', $file->id ) }}" class="btn btn-secondary">Aperçu</a>
                         </div>
                     </div>
                 </li>
