@@ -16,5 +16,5 @@ Route::get('/ajouter-file', [AdminController::class, 'ajouterFileForm'])->name('
 Route::post('/upload', [AdminController::class, 'uploadFile'])->name('admin.upload');
 
 
-Route::get('file/download', [AdminController::class, 'download'])->name('file.download');
-Route::get('file/preview', [AdminController::class, 'preview'])->name('file.preview');
+Route::get('file/download/{file}', [AdminController::class, 'download'])->name('file.download');
+Route::get('file/preview/{file}', [AdminController::class, 'preview'])->name('file.preview');
