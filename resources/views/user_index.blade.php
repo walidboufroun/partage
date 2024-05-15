@@ -1,6 +1,6 @@
 <!-- resources/views/users/index.blade.php -->
 
-@extends('layouts.app')
+@extends('layouts.ap')
 
 @section('content')
     <div class="container">
@@ -10,7 +10,8 @@
                 <tr>
                     <th>Nom</th>
                     <th>Email</th>
-                    <!-- Ajoutez d'autres colonnes si nécessaire -->
+                    <th>Date de creation</th>
+                    <!-- Ajoutez dautres colonnes si nécessaire -->
                 </tr>
             </thead>
             <tbody>
@@ -18,6 +19,7 @@
                     <tr>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
+                        <td>{{ $user->created_at }}</td>
                         <!-- Ajoutez d'autres colonnes si nécessaire -->
                     </tr>
                 @endforeach

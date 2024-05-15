@@ -1,6 +1,6 @@
 <!-- resources/views/admin/ajouter_file.blade.php -->
 
-@extends('layouts.app')
+@extends('layouts.ap')
 
 @section('content')
     <div class="container">
