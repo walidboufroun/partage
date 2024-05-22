@@ -54,7 +54,7 @@
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                 <div class="app-brand demo">
                     <a href="index.html" class="app-brand-link">                       
-                        <img src="img/ae.jpeg" alt="" height="50px" width="60px">
+                        <img src="img/ae.jpeg" alt="" height="62px" width="60px">
                         <span class="app-brand-text demo menu-text fw-bolder ms-2">Algeria <br> exhibitions</span>
                     </a>
 
